@@ -6,6 +6,7 @@ use InfluxDB2\Client;
 
 /**
  * A wrapper for the InfluxDB2 client.
+ *
  * @see Client
  * @mixin Client
  */

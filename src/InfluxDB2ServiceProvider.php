@@ -19,6 +19,6 @@ class InfluxDB2ServiceProvider extends PackageServiceProvider
             ->name('laravel-influxdb2')
             ->hasConfigFile('influxdb2');
 
-        $this->app->bind(Client::class, fn() => new Client(config('influxdb2')));
+        $this->app->bind(Client::class, fn () => new Client(config('influxdb2')));
     }
 }

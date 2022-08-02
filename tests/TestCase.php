@@ -3,8 +3,8 @@
 namespace Nicko170\InfluxDB2\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Orchestra\Testbench\TestCase as Orchestra;
 use Nicko170\InfluxDB2\InfluxDB2ServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {

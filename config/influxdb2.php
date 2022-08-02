@@ -5,5 +5,5 @@ return [
     'token' => env('INFLUXDB_TOKEN'),
     'bucket' => env('INFLUXDB_BUCKET'),
     'org' => env('INFLUXDB_ORG'),
-    'precision' => \InfluxDB2\Model\WritePrecision::S
+    'precision' => \InfluxDB2\Model\WritePrecision::S,
 ];

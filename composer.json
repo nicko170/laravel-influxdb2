@@ -1,6 +1,6 @@
 {
     "name": "nicko170/laravel-influxdb2",
-    "description": "This is my package laravel-influxdb2",
+    "description": "A simple wrapper around `influxdata/influxdb-client-php` to make usage in Laravel easier.",
     "keywords": [
         "nicko170",
         "laravel",

@@ -1,71 +1,54 @@
+# laravel-influxdb2
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/support-ukraine.svg?t=1" />](https://supportukrainenow.org)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/nicko170/laravel-influxdb2.svg?style=flat-square)](https://packagist.org/packages/nicko170/laravel-influxdb2)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/nicko170/laravel-influxdb2/run-tests?label=tests)](https://github.com/nicko170/laravel-influxdb2/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/nicko170/laravel-influxdb2/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/nicko170/laravel-influxdb2/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/nicko170/laravel-influxdb2.svg?style=flat-square)](https://packagist.org/packages/nicko170/laravel-influxdb2)
 
-# :package_description
-
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/:vendor_slug/:package_slug/run-tests?label=tests)](https://github.com/:vendor_slug/:package_slug/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/:vendor_slug/:package_slug/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/:vendor_slug/:package_slug/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
-<!--delete-->
----
-This repo can be used to scaffold a Laravel package. Follow these steps to get started:
-
-1. Press the "Use this template" button at the top of this repo to create a new repo with the contents of this skeleton.
-2. Run "php ./configure.php" to run a script that will replace all placeholders throughout all the files.
-3. Have fun creating your package.
-4. If you need help creating a package, consider picking up our <a href="https://laravelpackage.training">Laravel Package Training</a> video course.
----
-<!--/delete-->
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
-
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/:package_name.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/:package_name)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+A simple wrapper around `influxdata/influxdb-client-php` to make usage in Laravel easier.
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require :vendor_slug/:package_slug
-```
-
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag=":package_slug-migrations"
-php artisan migrate
+composer require nicko170/laravel-influxdb2
 ```
 
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag=":package_slug-config"
+php artisan vendor:publish --tag="laravel-influxdb2-config"
 ```
 
 This is the contents of the published config file:
 
 ```php
 return [
+    'url' => env('INFLUXDB_URL', 'http://localhost:8086'),
+    'token' => env('INFLUXDB_TOKEN'),
+    'bucket' => env('INFLUXDB_BUCKET'),
+    'org' => env('INFLUXDB_ORG'),
+    'precision' => \InfluxDB2\Model\WritePrecision::S
 ];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag=":package_slug-views"
 ```
 
 ## Usage
 
+Add your InfluxDB connection to your `.env` file:
+```dotenv
+INFLUXDB_URL=https://ap-southeast-2-1.aws.cloud2.influxdata.com
+INFLUXDB_TOKEN=XXX
+INFLUXDB_BUCKET=YYY
+INFLUXDB_ORG=ZZZ
+```
+
+Create a new class instance, and use it to write data:
+
 ```php
-$variable = new VendorName\Skeleton();
-echo $variable->echoPhrase('Hello, VendorName!');
+$influxdb = new \Nicko170\InfluxDB2\InfluxDB2()
+$writer = $influxdb->createWriteApi();
+$writer->write(new \InfluxDB2\Point('cpu_load', ['host' => 'serverA'], ['value' => 0.64]));
 ```
 
 ## Testing
@@ -80,7 +63,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 ## Contributing
 
-Please see [CONTRIBUTING](https://github.com/:author_username/.github/blob/main/CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](https://github.com/nicko170/.github/blob/main/CONTRIBUTING.md) for details.
 
 ## Security Vulnerabilities
 
@@ -88,7 +71,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [:author_name](https://github.com/:author_username)
+- [Nick Pratley](https://github.com/nicko170)
 - [All Contributors](../../contributors)
 
 ## License
